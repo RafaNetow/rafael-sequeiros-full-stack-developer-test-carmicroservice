@@ -22,8 +22,8 @@ export class RegisterCarService {
     return this.registerRepository.save(registerCar);
   }
 
-  async update(car: RegisterCar): Promise<RegisterCar> {
-    return await this.registerRepository.save(car);
+  async update(register: RegisterCar): Promise<RegisterCar> {
+    return await this.registerRepository.save(register);
   }
 
   async findAll(): Promise<RegisterCar[]> {
