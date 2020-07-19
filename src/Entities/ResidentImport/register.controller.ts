@@ -2,13 +2,12 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateRegisterImportDto } from './dto/create-registerImport.dto';
 import { RegisterImport } from './registerImport.entity';
 import { RegisterImportService } from './registerImport.service';
-import { } from './registerImport.entity'
 import { DeleteResult } from 'typeorm';
 
 
 
 @Controller('registerImport')
-export class CarController {
+export class RegisterImportController {
     constructor(private readonly registerService: RegisterImportService) { }
 
     @Post()
@@ -18,7 +17,7 @@ export class CarController {
 
 
     @Get()
-    findAll(): Promise<Car[]> {
+    findAll(): Promise<RegisterImport[]> {
         return this.registerService.findAll();
     }
 
