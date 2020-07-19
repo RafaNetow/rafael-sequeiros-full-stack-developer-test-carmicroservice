@@ -2,7 +2,7 @@
 
 
 
-3323777777import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCarDto } from './dto/create-car.dto';
@@ -35,7 +35,7 @@ export class CarService {
     return this.carRepository.save(newCar);
   }
 
-  async checkOutCar(licensePlate: string): Promise<RegisterCar> {
+  async checkOutCar(licensePlate: string): Promise<Object> {
     let registerCar = await this.registerCarService.findOne(licensePlate);
     let car = await this.carRepository.findOne(licensePlate);
 
@@ -44,10 +44,17 @@ export class CarService {
       let outDay = new Date()
       registerCar.checkOut = outDay;
       return await this.registerCarService.update(registerCar)
-    } else if (car.typeOfCar === Type.RESIDENT_CAR) 
-      
+    } else if (car.typeOfCar === Type.RESIDENT_CAR)  {
+      var diff = (registerCar.checkIn.getTime() - new Date().getTime()) / 1000;
+      diff /= 60;
+     return  Math.abs(Math.round(diff))
+    } else if (car.typeOfCar === Type.NO_RESIDENT_CAR) {
+      var diff = (registerCar.checkIn.getTime() - new Date().getTime()) / 1000;
+      diff /= 60;
+      return Math.abs(Math.round(diff))*0.05;
+    }
 
-   }
+    return null;
 
 }
 
